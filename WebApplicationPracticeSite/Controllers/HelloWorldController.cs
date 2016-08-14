@@ -19,7 +19,7 @@ namespace WebApplicationPracticeSite.Controllers
             return View();
         }
         /// <summary>
-        /// GET: /HelloWorld/Welcome?name=Scott&id=4
+        /// GET: /HelloWorld/Welcome?name=Scott&id=4 使用查询字符串 QueryString
         /// or Get:  HelloWorld/Welcome/Scott/3(添加了name MapRoute后才可使用)
         /// </summary>
         /// <param name="name"></param>

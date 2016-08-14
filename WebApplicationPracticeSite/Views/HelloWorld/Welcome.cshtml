@@ -9,6 +9,7 @@
     @for (int i = 0; i < ViewBag.ID; i++)
     {
         <li>@ViewBag.Message</li>
+        <!--@Html.Raw(ViewBag.Message)方法来输出HTML标签源码而不进行转义-->
     }
 </ul>
  
