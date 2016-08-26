@@ -13,16 +13,19 @@ namespace WebApplicationPracticeSite
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //URL规则，多个URL规则时，将default放在最后
+            routes.MapRoute(
+                name: "Hello",
+                url: "{controller}/{action}/{name}/{id}",
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "WebApplicationPracticeSite.Controllers" }
             );
-            //URL规则
-           routes.MapRoute(
-           name: "Hello",
-           url: "{controller}/{action}/{name}/{id}"
-           ); 
+          
         }
     }
 }

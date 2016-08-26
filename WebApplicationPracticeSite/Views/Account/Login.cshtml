@@ -1,15 +1,78 @@
 ﻿@model WebApplicationPracticeSite.Models.LoginViewModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "系统登录";
 }
+<head>
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    @Styles.Render("~/Content/themes/gray/css")
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        $(function () {
+            $("#LoginSys").click(function () {
+                LoginSys();
+            });
+            $("#UserName").keydown(function (e) {
+                var curkey = e.which;
+                if (curkey == 13) {
+                    LoginSys();
+                    return false;
+                }
+            });
+            $("#Password").keydown(function (e) {
+                var curkey = e.which;
+                if (curkey == 13) {
+                    LoginSys();
+                    return false;
+                }
+            });
+            $("#ValidateCode").keydown(function (e) {
+                var curkey = e.which;
+                if (curkey == 13) {
+                    LoginSys();
+                    return false;
+                }
+            });
+        });
+        function LoginSys() {
+            $("#mes").html("");
+            $("#UserName").removeClass("input-validation-error");
+            $("#Password").removeClass("input-validation-error");
+            $("#ValidateCode").removeClass("input-validation-error");
+            if ($.trim($("#UserName").val()) == "") {
+                $("#UserName").addClass("input-validation-error").focus();
+                $("#mes").html("用户名不能为空！");
+                return;
+            }
+            if ($.trim($("#Password").val()) == "") {
+                $("#Password").addClass("input-validation-error").focus();
+                $("#mes").html("密码不能为空！");
+                return;
+            }
+            if ($.trim($("#ValidateCode").val()) == "") {
+                $("#ValidateCode").addClass("input-validation-error").focus();
+                $("#mes").html("验证码不能为空！");
+                return;
+            }
+            $("#Loading").show();
 
-<h2>@ViewBag.Title.</h2>
+            alert(1);
+            return false;
+        }
+    </script>
+</head>        
 <div class="row">
+    <div class="define-head" style="height: 67px;">
+        <div class="define-logo">
+            <div id="LoginTopLine">Ctddjyds.cnblogs.com</div>
+            <div id="LoginBotoomLine">MVC5+EF6.0+EasyUI</div>
+        </div>
+    </div>
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+    {
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
                 <hr />
