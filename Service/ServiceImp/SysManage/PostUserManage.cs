@@ -61,7 +61,7 @@ namespace Service.ServiceImp
                         FK_USERID = userId,
                         FK_POST_DEPARTMENTID = int.Parse(item)
                     }).ToList();
-                    return this.SaveList(list) > 0;
+                    return this.SaveList(list);
                 }
                 return true;
             }

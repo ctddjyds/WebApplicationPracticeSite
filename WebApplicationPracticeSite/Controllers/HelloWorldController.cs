@@ -25,16 +25,16 @@ namespace WebApplicationPracticeSite.Controllers
         /// <param name="name"></param>
         /// <param name="numTimes"></param>
         /// <returns></returns>
-        //public string Welcome(string name, int ID = 1)
+        //public string Welcome(string name, int numTimes = 1)
         //{
         //    //HttpServerUtility.HtmlEncode 来保护应用从malacious输入的(也就是JavaScript)
         //    return HttpUtility.HtmlEncode("Hello " + name + ", NumTimes is: " + ID);
         //}
-        public ActionResult Welcome(string name, int ID = 1)
+        public ActionResult Welcome(string name, int numTimes = 1)
         {
             //ViewBag 对象包含了数据，并将自动传递给视图模板
             ViewBag.Message = "Hello " + name;
-            ViewBag.ID = ID;
+            ViewBag.numTimes = numTimes;
             return View();
         }
     }   

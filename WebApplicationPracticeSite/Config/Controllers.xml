@@ -6,5 +6,24 @@
   <object type="WebApplicationPracticeSite.Areas.SysManage.Controllers.AccountController,WebApplicationPracticeSite" singleton="false">
     <property name="UserManage" ref="Service.User"/>
   </object>
+   <!--主页控制器-->
+  <object type="WebApplicationPracticeSite.Areas.SysManage.Controllers.HomeController,WebApplicationPracticeSite" singleton="false">
+    <property name="ModuleManage" ref="Service.Module"/>
+  </object>
+  <!--模块管理-->
+   <object type="WebApplicationPracticeSite.Areas.SysManage.Controllers.ModuleController,WebApplicationPracticeSite" singleton="false">
+     <property name="ModuleManage" ref="Service.Module"/>
+     <property name="PermissionManage" ref="Service.Permission"/>
+     <property name="SystemManage" ref="Service.System"/>
+   </object>
+  <!--模块权限-->
+  <object id="Service.Permission" type="Service.ServiceImp.PermissionManage,Service" singleton="false">
+  </object>
+  <!--系统权限-->
+  <object id="Service.System" type="Service.ServiceImp.SystemManage,Service" singleton="false">
+  </object>
+  <!--系统权限-->
+  <object id="Service.Module" type="Service.ServiceImp.ModuleManage,Service" singleton="false">
+  </object>
   <!--系统管理 end-->
 </objects>

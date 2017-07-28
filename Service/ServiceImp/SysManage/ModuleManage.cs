@@ -7,13 +7,11 @@ namespace Service.ServiceImp
 {
     /// <summary>
     /// Service模型处理类
-    /// add yuangang by 2015-05-22
     /// </summary>
     public class ModuleManage : RepositoryBase<Domain.SYS_MODULE>, IService.IModuleManage
     {
         /// <summary>
         /// 获取用户权限模块集合
-        /// add yuangang by 2015-05-30
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <param name="permission">用户授权集合</param>
@@ -34,11 +32,42 @@ namespace Service.ServiceImp
             //检索显示与系统
             //permodule = permodule.Where(p => p.ISSHOW == 1 && p.FK_BELONGSYSTEM.ToString() == siteId).ToList();
             //商城系统融入本系统不再区分系统
-            permodule = permodule.Where(p => p.ISSHOW == 1).ToList();
+            permodule = permodule.Where(p => p.ISSHOW).ToList();
             //构造上级导航模块
             //var prevModule = this.LoadListAll(p => p.FK_BELONGSYSTEM.ToString() == siteId);
             //商城系统融入本系统不再区分系统
             var prevModule = this.LoadListAll(null);
+            //反向递归算法构造模块带上级上上级模块
+            if (permodule.Count > 0)
+            {
+                foreach (var item in permodule)
+                {
+                    RecursiveModule(prevModule, retmodule, item.PARENTID);
+                    retmodule.Add(item);
+                }
+            }
+            //去重
+            retmodule = retmodule.Distinct(new ModuleDistinct()).ToList();
+            //返回模块集合
+            return retmodule.OrderBy(p => p.LEVELS).ThenBy(p => p.SHOWORDER).ToList();
+        }
+
+        public List<Domain.SYS_MODULE> GetModule(int userId, List<Domain.SYS_PERMISSION> permission, List<string> systemid)
+        {
+            //返回模块
+            var retmodule = new List<Domain.SYS_MODULE>();
+            var permodule = new List<Domain.SYS_MODULE>();
+            //权限转模块
+            if (permission != null)
+            {
+                permodule.AddRange(permission.Select(p => p.SYS_MODULE));
+                //去重
+                permodule = permodule.Distinct(new ModuleDistinct()).ToList();
+            }
+            //检索显示与系统
+            permodule = permodule.Where(p => p.ISSHOW && systemid.Any(e => e == p.FK_BELONGSYSTEM)).ToList();
+            //构造上级导航模块
+            var prevModule = this.LoadListAll(p => systemid.Any(e => e == p.FK_BELONGSYSTEM));
             //反向递归算法构造模块带上级上上级模块
             if (permodule.Count > 0)
             {
@@ -75,7 +104,6 @@ namespace Service.ServiceImp
 
         /// <summary>
         /// 递归模块列表，返回按级别排序
-        /// add yuangang by 2015-06-03
         /// </summary>
         public List<Domain.SYS_MODULE> RecursiveModule(List<Domain.SYS_MODULE> list)
         {
@@ -88,7 +116,6 @@ namespace Service.ServiceImp
         }
         /// <summary>
         /// 递归模块列表
-        /// add yuangang by 2015-06-03
         /// </summary>
         private void ChildModule(List<Domain.SYS_MODULE> list, List<Domain.SYS_MODULE> newlist, int parentId)
         {
@@ -132,7 +159,6 @@ namespace Service.ServiceImp
     }
     /// <summary>
     /// 模型去重，非常重要
-    /// add yuangang by 2015-08-03
     /// </summary>
     public class ModuleDistinct : IEqualityComparer<Domain.SYS_MODULE>
     {

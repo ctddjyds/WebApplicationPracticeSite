@@ -9,6 +9,7 @@ namespace WebApplicationPracticeSite.Models
 {
     public class Movie
     {
+        [Key] //标识为主键
         public int ID { get; set; }
         [StringLength(60, MinimumLength = 3)]
         public string Title { get; set; }

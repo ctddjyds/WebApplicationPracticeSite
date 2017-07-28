@@ -8,6 +8,9 @@ using System.Web.Routing;
 
 namespace WebApplicationPracticeSite
 {
+    /// <summary>
+    /// SpringMvcApplication 使spring.net的容器接管启动
+    /// </summary>
     public class MvcApplication : Spring.Web.Mvc.SpringMvcApplication
     {
         protected void Application_Start()

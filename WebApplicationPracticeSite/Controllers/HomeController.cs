@@ -8,6 +8,7 @@ namespace WebApplicationPracticeSite.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize] // 认证属性-让Action 方法更安全
         public ActionResult Index()
         {
             return View();

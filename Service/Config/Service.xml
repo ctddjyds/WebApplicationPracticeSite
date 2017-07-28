@@ -5,5 +5,8 @@
   <!--用户管理-->
   <object id="Service.User" type="Service.ServiceImp.UserManage,Service" singleton="false">
   </object>
+  <!--预置编码管理-->
+  <object id="Service.Code" type="Service.ServiceImp.CodeManage,Service" singleton="false">
+  </object>
   <!--系统管理end-->
 </objects>

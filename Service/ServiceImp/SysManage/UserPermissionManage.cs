@@ -36,7 +36,7 @@ namespace Service.ServiceImp
                     FK_PERMISSIONID = int.Parse(t)
                 }))
                 {
-                    this.dbSet.Add(per);
+                    Context.Set<Domain.SYS_USER_PERMISSION>().Add(per);
                 }
                 //5、Save
                 return this.Context.SaveChanges() > 0;
